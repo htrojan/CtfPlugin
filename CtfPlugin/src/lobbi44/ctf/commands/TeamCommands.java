@@ -19,11 +19,11 @@ public class TeamCommands {
     }
 
     @Command(name = "teams.create", permission = "teams.create", description = "Create a team", usage = "/command [teamname]")
-    public void CreateTeam(CommandEvent event) {
+    public boolean CreateTeam(CommandEvent event) {
         logger.info("Team is going to be created!");
         if (event.getArgs().length != 1) {
             event.getCommandSender().sendMessage("Error. See usage");
-            return; //Error
+            return false; //Error
         }
 
         logger.info("Arg = " + Arrays.toString(event.getArgs()));
@@ -33,25 +33,27 @@ public class TeamCommands {
         } catch (IllegalArgumentException e) {
             event.getCommandSender().sendMessage("This team does already exist");
             logger.info("Team already existent, ignoring");
-            return;
+            return false;
         }
         logger.info("Created team \"" + event.getArgs()[0] + "\"");
         event.getCommandSender().sendMessage("Team registered successfully!");
+        return true;
     }
 
     @Command(name = "teams.list", permission = "teams.list", description = "List all teams", usage = "/command")
-    public void ListTeams(CommandEvent args) {
+    public boolean ListTeams(CommandEvent args) {
         StringBuilder message = new StringBuilder();
         for (Team t : scoreboard.getTeams())
             message.append(t.getDisplayName()).append("\n");
         args.getCommandSender().sendMessage(message.toString());
+        return true;
     }
 
     @Command(name = "teams.remove", permission = "teams.remove", description = "Removes the specified team", usage = "/command [teamname]")
-    public void RemoveTeam(CommandEvent event) {
+    public boolean RemoveTeam(CommandEvent event) {
         if (event.getArgs().length != 1) {
             event.getCommandSender().sendMessage("Wrong number of arguments");
-            return;
+            return false;
         }
 
         try {
@@ -62,5 +64,6 @@ public class TeamCommands {
         } catch (IllegalArgumentException e) {
             event.getCommandSender().sendMessage("This team does not exist");
         }
+        return true;
     }
 }
