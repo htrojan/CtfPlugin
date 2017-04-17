@@ -58,7 +58,7 @@ public class CtfPlugin extends JavaPlugin {
     }
 
     private void initCommandFramework() {
-        framework = new CommandFramework(this);
+        framework = new CommandFramework(this, this.getLogger());
         framework.registerCommands(new TeamCommands(scoreboard, getLogger()));
         framework.registerCommands(new CtfCommands(this, stateCom));
 
