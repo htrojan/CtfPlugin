@@ -62,7 +62,7 @@ public class CtfPlugin extends JavaPlugin {
         framework.registerCommands(new TeamCommands(scoreboard, getLogger()));
         framework.registerCommands(new CtfCommands(this, stateCom));
 
-        //framework.registerHelp();
+        framework.registerHelpTopic("");
     }
 
     private void initStateCommunicator() {
