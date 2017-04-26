@@ -60,7 +60,7 @@ public class TeamCommands {
             Team t = scoreboard.getTeam(event.getArgs().get(0));
             t.unregister();
             event.getCommandSender().sendMessage("Team removed successfully");
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             event.getCommandSender().sendMessage("This team does not exist");
         }
         return true;
