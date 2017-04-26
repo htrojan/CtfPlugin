@@ -5,7 +5,6 @@ import lobbi44.kt.command.annotations.Command;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class TeamCommands {
@@ -21,21 +20,21 @@ public class TeamCommands {
     @Command(name = "teams.create", permission = "teams.create", description = "Create a team", usage = "/command [teamname]")
     public boolean CreateTeam(CommandEvent event) {
         logger.info("Team is going to be created!");
-        if (event.getArgs().length != 1) {
+        if (event.getArgs().size() != 1) {
             event.getCommandSender().sendMessage("Error. See usage");
             return false; //Error
         }
 
-        logger.info("Arg = " + Arrays.toString(event.getArgs()));
+        logger.info("Arg = " + event.getArgs());
 
         try {
-            scoreboard.registerNewTeam(event.getArgs()[0]);
+            scoreboard.registerNewTeam(event.getArgs().get(0));
         } catch (IllegalArgumentException e) {
             event.getCommandSender().sendMessage("This team does already exist");
             logger.info("Team already existent, ignoring");
             return false;
         }
-        logger.info("Created team \"" + event.getArgs()[0] + "\"");
+        logger.info("Created team \"" + event.getArgs().get(0) + "\"");
         event.getCommandSender().sendMessage("Team registered successfully!");
         return true;
     }
@@ -51,14 +50,14 @@ public class TeamCommands {
 
     @Command(name = "teams.remove", permission = "teams.remove", description = "Removes the specified team", usage = "/command [teamname]")
     public boolean RemoveTeam(CommandEvent event) {
-        if (event.getArgs().length != 1) {
+        if (event.getArgs().size() != 1) {
             event.getCommandSender().sendMessage("Wrong number of arguments");
             return false;
         }
 
         try {
             //avoiding possible null pointer exception
-            Team t = scoreboard.getTeam(event.getArgs()[0]);
+            Team t = scoreboard.getTeam(event.getArgs().get(0));
             t.unregister();
             event.getCommandSender().sendMessage("Team removed successfully");
         } catch (IllegalArgumentException e) {
