@@ -6,6 +6,7 @@ import lobbi44.ctf.statelogic.InitPeriod;
 import lobbi44.ctf.statemachine.IStateCom;
 import lobbi44.ctf.statemachine.StateInstantiationException;
 import lobbi44.kt.command.CommandEvent;
+import lobbi44.kt.command.annotations.Command;
 
 /**
  * @author lobbi44
@@ -20,11 +21,14 @@ public class CtfCommands {
         this.stateCom = stateCom;
     }
 
-    public void startGame(CommandEvent args) {
+    @Command(name = "ctf.start", description = "Starts the capture the flag game")
+    public boolean startGame(CommandEvent args) {
         try {
             stateCom.setActive(InitPeriod.class);
+            return true;
         } catch (StateInstantiationException e) {
             e.printStackTrace();
         }
+        return false;
     }
 }
