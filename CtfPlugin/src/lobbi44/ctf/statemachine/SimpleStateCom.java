@@ -115,7 +115,7 @@ public class SimpleStateCom implements IStateCom, Listener {
             if (annotation == null)
                 continue;
             if (!providedObjects.containsKey(annotation.Name()))
-                throw new InjectionException("The value \"" + annotation.Name() + "\" could not be injected into \"" +
+                throw new InjectionException("The result \"" + annotation.Name() + "\" could not be injected into \"" +
                         field.getName() + "\" as no object with such name has been provided.");
             try {
                 field.setAccessible(true);
